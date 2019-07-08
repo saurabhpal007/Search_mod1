@@ -38,21 +38,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         //used to get all the contents from database
-        fetchuser("");
+      //  fetchuser("sam");
 
-        /*  search.setOnClickListener(new View.OnClickListener() {
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("opqs","u"+searchedi.getText().toString());
-                fetchuser(searchedi.getText().toString());
+                if(!(searchedi.getText().length()==0)) {
+                    fetchuser(searchedi.getText().toString());
+                }
+                else
+                {
+
+                    Toast.makeText(MainActivity.this, "Search Empty", Toast.LENGTH_SHORT).show();
+                }
             }
-        });*/
+        });
 
 
     }
-
-
-
     public void fetchuser(String key){
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
 
                 users = response.body();
-                Log.i("opppp","u"+users.get(1));
+                Log.i("opppp",""+users.get(0).getId());
                 adapter = new Adapter(users, MainActivity.this);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

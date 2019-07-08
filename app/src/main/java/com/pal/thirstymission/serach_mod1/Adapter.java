@@ -3,6 +3,7 @@ package com.pal.thirstymission.serach_mod1;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.name.setText(users.get(position).getName());
-        holder.id.setText(users.get(position).getId());
+       holder.name.setText("NAME:"+users.get(position).getName());
+       holder.id.setText("ID:"+String.valueOf(users.get(position).getId()));
+      Log.i("checkkkk",""+String.valueOf(users.get(position).getId()));
     }
 
     @Override
@@ -42,7 +44,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
-            id = itemView.findViewById(R.id.id);
+            id=itemView.findViewById(R.id.ide);
         }
     }
 }
