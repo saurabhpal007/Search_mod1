@@ -56,7 +56,7 @@ public class Filter extends AppCompatActivity {
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<List<Users>> call = apiInterface.getfc(key1, key2, key3, key4);
+        Call<List<Users>> call = apiInterface.getfc(key1, key2);
         Log.i("okk",""+key1+key2+key3+key4);
         call.enqueue(new Callback<List<Users>>() {
             @Override
