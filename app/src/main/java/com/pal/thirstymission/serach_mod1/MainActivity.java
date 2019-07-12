@@ -1,5 +1,7 @@
 package com.pal.thirstymission.serach_mod1;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+  Filter filter;
     private List<Users> users;
     private ApiInterface apiInterface;
     EditText searchedi;
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Adapter adapter;
-
+   // private Spinner spinner1;
+  FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +40,19 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
+       // spinner1=findViewById(R.id.spinner1);
+       fab=findViewById(R.id.floatingActionButton);
         //used to get all the contents from database
       //  fetchuser("sam");
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Filter.class);
+                startActivity(intent);
+
+            }
+        });
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override

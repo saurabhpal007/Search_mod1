@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Serach_mod1</string>
+    <string name="branch_prompt">Branch</string>
+    <string name="year_prompt">Year</string>
+
+    <string-array name="branch_arrays">
+        <item>IT</item>
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>MECH</item>
+        <item>EEE</item>
+        <item>+ADD MORE BRANCHES</item>
+    </string-array>
+    <string-array name="year_arrays">
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+    </string-array>
 </resources>

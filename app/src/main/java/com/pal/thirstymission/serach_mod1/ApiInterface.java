@@ -12,4 +12,13 @@ public interface ApiInterface {
     Call<List<Users>> getUs(
             @Query("key") String key
     );
+    @GET("getfc.php")
+    Call<List<Users>> getfc(
+                    @Query("key0") String key1,
+                    @Query("key2") String key2,
+                    @Query("key3") String key3,
+                    @Query("key4") String key4
+    );
+
+
 }
