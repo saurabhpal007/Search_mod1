@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Colleges"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="5dp"/>
     <android.support.v7.widget.RecyclerView
 
         android:id="@+id/recyclecllg"
@@ -13,6 +20,14 @@
 
         >
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_below="@+id/recyclecllg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Branches"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="5dp"/>
     <android.support.v7.widget.RecyclerView
 
         android:id="@+id/recyclebr"
@@ -23,6 +38,14 @@
         android:background="@color/colorPrimary"
         >
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_below="@+id/recyclebr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Years"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="5dp"/>
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/recyclebr"
         android:id="@+id/recyclecyr"

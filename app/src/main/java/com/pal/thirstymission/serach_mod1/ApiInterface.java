@@ -23,6 +23,14 @@ public interface ApiInterface {
     Call<List<Colleges>> getcllg(
 
     );
+    @GET("getbr.php")
+    Call<List<Branches>> getbr(
+
+    );
+    @GET("getyr.php")
+    Call<List<Years>> getyr(
+
+    );
 
 
 }
