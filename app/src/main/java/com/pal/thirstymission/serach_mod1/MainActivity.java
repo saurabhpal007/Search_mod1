@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
+        String e=""+"+";
         // spinner1=findViewById(R.id.spinner1);
         fab = findViewById(R.id.floatingActionButton);
 
@@ -59,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String r="ROM";
+                String e="\""+r+"\"";
 
-                Toast.makeText(MainActivity.this, "pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "pressed"+e, Toast.LENGTH_SHORT).show();
 
                 Intent intent=new Intent(MainActivity.this,Getc.class);
                 startActivity(intent);
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("opqs", "u" + searchedi.getText().toString());
+
+                Log.i("opqs", "u" );
                 if (!(searchedi.getText().length() == 0)) {
                     fetchuser(searchedi.getText().toString());
                 } else {

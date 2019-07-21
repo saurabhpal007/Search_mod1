@@ -16,16 +16,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class Getc extends AppCompatActivity {
     public List<Colleges> colleges;
     public List<Branches> branches;
+    public Adapcllg ax;
     public List<Years> years;
     private ApiInterface apiInterface;
     private RecyclerView recyclerViewcllg;
     private RecyclerView.Adapter ad;
     private RecyclerView.LayoutManager layoutManager;
     Button src;
-   // private Context context;
+
    private RecyclerView recyclerViewbr;
     private RecyclerView.Adapter adb;
     private RecyclerView.LayoutManager layoutManager2;
@@ -35,7 +37,7 @@ public class Getc extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager3;
 
 
-
+        Adapcllg l;
 
 
     @Override
@@ -64,8 +66,17 @@ public class Getc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+              // Log.i("qa",""+l.joined);
+                ax=new Adapcllg();
+                String s =ax.list.get(0);
+                Log.i("ozz", "u" +s);
+
+
             }
         });
+
+
 
     }
     public void fetchcllg() {
@@ -83,6 +94,9 @@ public class Getc extends AppCompatActivity {
                ad = new Adapcllg(colleges, Getc.this);
                recyclerViewcllg.setAdapter(ad);
                ad.notifyDataSetChanged();
+
+
+
             }
 
             @Override
