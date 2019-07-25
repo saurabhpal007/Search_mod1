@@ -1,6 +1,5 @@
 package com.pal.thirstymission.serach_mod1;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,15 +53,24 @@ public class Adapcllg extends RecyclerView.Adapter<Adapcllg.MyViewHolder> {
                 if ( isChecked )
 
                 {
-                         list.add("\""+colleges.get(i).getCollege()+"\"");
-                        joined = TextUtils.join(",", list);
-                         Log.i("qqqq",""+joined);
+                     list.add(colleges.get(i).getCollege());
+                      joined = TextUtils.join("~", list);
 
+                }
+                else{
+
+                   list.remove(colleges.get(i).getCollege());
+                   joined = TextUtils.join("~", list);
+                }
+                Log.i("qqqq",""+joined);
+                if (context instanceof Getc) {
+                    ((Getc) context).updatecllglist(joined);
                 }
 
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return colleges.size();
@@ -76,8 +83,4 @@ public class Adapcllg extends RecyclerView.Adapter<Adapcllg.MyViewHolder> {
         }
     }
 
-    public Adapcllg()
-    {
-
-    }
 }

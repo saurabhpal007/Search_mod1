@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
@@ -29,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Adapter adapter;
+    String passedItem;
+    String passedItem2;
+    String passedItem3;
+    int REQUEST_CODE=101;
+
 
 
     FloatingActionButton fab;
@@ -38,18 +42,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        layoutManager = new LinearLayoutManager(this);
+
         searchedi = findViewById(R.id.searchedit);
         search = findViewById(R.id.searchbtn);
         recyclerView = findViewById(R.id.recyclerView);
-
-
-
-
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        String e=""+"+";
-        // spinner1=findViewById(R.id.spinner1);
+
+
         fab = findViewById(R.id.floatingActionButton);
 
         //used to get all the contents from database
@@ -59,22 +60,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r="ROM";
-                String e="\""+r+"\"";
+                Toast.makeText(MainActivity.this, "pressed", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MainActivity.this, Getc.class), REQUEST_CODE);
 
-                Toast.makeText(MainActivity.this, "pressed"+e, Toast.LENGTH_SHORT).show();
-
-                Intent intent=new Intent(MainActivity.this,Getc.class);
-                startActivity(intent);
 
             }
         });
+
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.i("opqs", "u" );
+                Log.i("mmmm", ""+passedItem);
+                Log.i("mmmm", ""+passedItem2);
+                Log.i("mmmm", ""+passedItem3);
                 if (!(searchedi.getText().length() == 0)) {
                     fetchuser(searchedi.getText().toString());
                 } else {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
 
                 users = response.body();
-                Log.i("opppp", "" + users.get(0).getId());
+                Log.i("opppp", "" + users.get(0).getYear());
                 adapter = new Adapter(users, MainActivity.this);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -110,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            passedItem = (String) data.getExtras().get("passed_item");
+            passedItem2 = (String) data.getExtras().get("passed_item2");
+            passedItem3 = (String) data.getExtras().get("passed_item3");
+        }
+    }
+
 
 
 

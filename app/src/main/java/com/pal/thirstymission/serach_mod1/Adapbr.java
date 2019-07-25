@@ -47,14 +47,18 @@ public class Adapbr extends RecyclerView.Adapter<Adapbr.MyViewHolder> {
                 if ( isChecked )
 
                 {
-                    list1.add("\""+branches.get(i).getBranch()+"\"");
+                    list1.add(branches.get(i).getBranch());
+                    joined1 = TextUtils.join("~", list1);
 
-                    joined1 = TextUtils.join(",", list1);
-                    Log.i("qqqq",""+joined1);
+                }
+                else{
 
-
-
-
+                    list1.remove(branches.get(i).getBranch());
+                    joined1 = TextUtils.join("~", list1);
+                }
+                Log.i("qqqqbr",""+joined1);
+                if (context instanceof Getc) {
+                    ((Getc) context).updatebrlist(joined1);
                 }
 
             }

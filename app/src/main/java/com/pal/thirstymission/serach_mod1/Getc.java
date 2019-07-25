@@ -1,7 +1,9 @@
 package com.pal.thirstymission.serach_mod1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,14 +22,14 @@ import retrofit2.Response;
 public class Getc extends AppCompatActivity {
     public List<Colleges> colleges;
     public List<Branches> branches;
-    public Adapcllg ax;
+
     public List<Years> years;
     private ApiInterface apiInterface;
     private RecyclerView recyclerViewcllg;
     private RecyclerView.Adapter ad;
     private RecyclerView.LayoutManager layoutManager;
     Button src;
-
+    private static List<Users> usersFilter;
    private RecyclerView recyclerViewbr;
     private RecyclerView.Adapter adb;
     private RecyclerView.LayoutManager layoutManager2;
@@ -37,7 +39,11 @@ public class Getc extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager3;
 
 
-        Adapcllg l;
+
+   public static String cllg;
+    public static String br;
+    public static String yr;
+
 
 
     @Override
@@ -57,6 +63,8 @@ public class Getc extends AppCompatActivity {
         recyclerViewyr.setLayoutManager(layoutManager3);
 
 
+
+
         fetchcllg();
         fetchbr();
         fetchyr();
@@ -66,21 +74,16 @@ public class Getc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-              // Log.i("qa",""+l.joined);
-                ax=new Adapcllg();
-                String s =ax.list.get(0);
-                Log.i("ozz", "u" +s);
+               Log.i("qw",""+cllg);
+                Log.i("qw",""+br);
+                Log.i("qw",""+yr);
+            fetchfilter(cllg,br,yr);
 
 
             }
         });
-
-
-
     }
     public void fetchcllg() {
-
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
@@ -94,17 +97,12 @@ public class Getc extends AppCompatActivity {
                ad = new Adapcllg(colleges, Getc.this);
                recyclerViewcllg.setAdapter(ad);
                ad.notifyDataSetChanged();
-
-
-
             }
-
             @Override
             public void onFailure(Call<List<Colleges>> call, Throwable t) {
 
             }
         });
-
 
     }
     public void fetchbr() {
@@ -157,5 +155,60 @@ public class Getc extends AppCompatActivity {
         });
 
 
+    }
+
+    public void fetchfilter(String key0,String key2,String key3) {
+
+
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<List<Users>> call = apiInterface.getfc(key0,key2,key3);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+
+                usersFilter=response.body();
+             Log.i("otttt", "u"+usersFilter.get(0).getName()
+                        +""+usersFilter.get(0).getCollege()
+                        +""+usersFilter.get(0).getBranch()
+                        +""+usersFilter.get(0).getYear());
+             Log.i("zz",""+usersFilter);
+             finish();
+
+
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(Getc.this, "Error\n" + t.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
+
+    public void updatecllglist(String s) {
+        cllg=s;
+
+
+    }
+
+    public void updatebrlist(String s) {
+    br=s;
+
+    }
+    public void updateyrlist(String s) {
+      yr=s;
+
+    }
+    @Override
+    public void finish() {
+        Intent returnIntent = new Intent();
+
+        returnIntent.putExtra("passed_item", ""+cllg);
+        returnIntent.putExtra("passed_item2", ""+br);
+        returnIntent.putExtra("passed_item3", ""+yr);
+        setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
+        super.finish();
     }
 }

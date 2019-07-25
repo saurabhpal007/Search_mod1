@@ -45,14 +45,18 @@ public class Adapyr  extends RecyclerView.Adapter<Adapyr.MyViewHolder>  {
                 if ( isChecked )
 
                 {
-                    list2.add("\""+years.get(i).getYear()+"\"");
+                    list2.add(years.get(i).getYear());
+                    joined2 = TextUtils.join("~", list2);
 
-                    joined2 = TextUtils.join(",", list2);
-                    Log.i("qqqq",""+joined2);
+                }
+                else{
 
-
-
-
+                    list2.remove(years.get(i).getYear());
+                    joined2= TextUtils.join("~", list2);
+                }
+                Log.i("qqqqyr",""+joined2);
+                if (context instanceof Getc) {
+                    ((Getc) context).updateyrlist(joined2);
                 }
 
             }
