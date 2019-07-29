@@ -23,6 +23,14 @@
         android:layout_marginTop="20dp"/>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/searchbtn"
+        android:id="@+id/recyclerViewfilter"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="40dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/searchedit"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

@@ -38,13 +38,9 @@ public class Getc extends AppCompatActivity {
     private RecyclerView.Adapter ady;
     private RecyclerView.LayoutManager layoutManager3;
 
-
-
    public static String cllg;
     public static String br;
     public static String yr;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +73,7 @@ public class Getc extends AppCompatActivity {
                Log.i("qw",""+cllg);
                 Log.i("qw",""+br);
                 Log.i("qw",""+yr);
-            fetchfilter(cllg,br,yr);
+
 
 
             }
@@ -157,35 +153,6 @@ public class Getc extends AppCompatActivity {
 
     }
 
-    public void fetchfilter(String key0,String key2,String key3) {
-
-
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-        Call<List<Users>> call = apiInterface.getfc(key0,key2,key3);
-        call.enqueue(new Callback<List<Users>>() {
-            @Override
-            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
-
-                usersFilter=response.body();
-             Log.i("otttt", "u"+usersFilter.get(0).getName()
-                        +""+usersFilter.get(0).getCollege()
-                        +""+usersFilter.get(0).getBranch()
-                        +""+usersFilter.get(0).getYear());
-             Log.i("zz",""+usersFilter);
-             finish();
-
-
-            }
-            @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(Getc.this, "Error\n" + t.toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-
-    }
 
     public void updatecllglist(String s) {
         cllg=s;

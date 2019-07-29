@@ -12,11 +12,18 @@ public interface ApiInterface {
     Call<List<Users>> getUs(
             @Query("key") String key
     );
-    @GET("getfc.php")
+ /*   @GET("getfc.php")
     Call<List<Users>> getfc(
                     @Query("key0") String key0,
                     @Query("key2") String key2,
                      @Query("key3") String key3
+    );*/
+    @GET("lo.php")
+    Call<List<Users>> lo(
+            @Query("key") String key,
+            @Query("key0") String key0,
+            @Query("key2") String key2,
+            @Query("key3") String key3
     );
     @GET("getcllg.php")
     Call<List<Colleges>> getcllg(

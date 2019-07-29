@@ -28,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Adapter adapter;
-    String passedItem;
-    String passedItem2;
-    String passedItem3;
+
+    private RecyclerView recyclerViewfil;
+    private RecyclerView.LayoutManager layoutManagerfil;
+    private RecyclerView.Adapter adpfil;
+
+    String passedItem=null;
+    String passedItem2=null;
+    String passedItem3=null;
     int REQUEST_CODE=101;
 
 
@@ -49,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
+        recyclerViewfil = findViewById(R.id.recyclerViewfilter);
+        recyclerViewfil.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
+
+        adpfil = new Adapf(MainActivity.this);
+        recyclerViewfil.setAdapter(adpfil);
 
 
         fab = findViewById(R.id.floatingActionButton);
@@ -75,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("mmmm", ""+passedItem);
                 Log.i("mmmm", ""+passedItem2);
                 Log.i("mmmm", ""+passedItem3);
+                fetchfilter1(searchedi.getText().toString(),passedItem,passedItem2,passedItem3);
                 if (!(searchedi.getText().length() == 0)) {
                     fetchuser(searchedi.getText().toString());
                 } else {
-
                     Toast.makeText(MainActivity.this, "Search Empty", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -110,6 +123,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void fetchfilter1(String key,String key0,String key2,String key3) {
+
+
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<List<Users>> call = apiInterface.lo(key,key0,key2,key3);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+
+                users=response.body();
+                Log.i("otttt", "u"+users.get(0).getName()
+                        +""+users.get(0).getCollege()
+                        +""+users.get(0).getBranch()
+                        +""+users.get(0).getYear());
+                Log.i("zz",""+users);
+                adapter = new Adapter(users, MainActivity.this);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error\n" + t.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -118,6 +162,15 @@ public class MainActivity extends AppCompatActivity {
             passedItem2 = (String) data.getExtras().get("passed_item2");
             passedItem3 = (String) data.getExtras().get("passed_item3");
         }
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+
     }
 
 
