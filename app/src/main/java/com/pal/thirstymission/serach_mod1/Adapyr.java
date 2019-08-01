@@ -56,7 +56,7 @@ public class Adapyr  extends RecyclerView.Adapter<Adapyr.MyViewHolder>  {
                 }
                 Log.i("qqqqyr",""+joined2);
                 if (context instanceof Getc) {
-                    ((Getc) context).updateyrlist(joined2);
+                    ((Getc) context).updateyrlist(joined2,list2.size());
                 }
 
             }

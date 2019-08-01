@@ -64,7 +64,7 @@ public class Adapcllg extends RecyclerView.Adapter<Adapcllg.MyViewHolder> {
                 }
                 Log.i("qqqq",""+joined);
                 if (context instanceof Getc) {
-                    ((Getc) context).updatecllglist(joined);
+                    ((Getc) context).updatecllglist(joined,list.size());
                 }
 
             }

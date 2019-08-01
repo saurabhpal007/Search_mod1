@@ -42,6 +42,8 @@ public class Getc extends AppCompatActivity {
     public static String br;
     public static String yr;
 
+
+    public static int cllga=0,bra=0,yra=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +60,6 @@ public class Getc extends AppCompatActivity {
         recyclerViewyr= findViewById(R.id.recyclecyr);
         recyclerViewyr.setLayoutManager(layoutManager3);
 
-
-
-
         fetchcllg();
         fetchbr();
         fetchyr();
@@ -69,12 +68,11 @@ public class Getc extends AppCompatActivity {
         src.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               Log.i("qw",""+cllg);
-                Log.i("qw",""+br);
-                Log.i("qw",""+yr);
-
-
+                Intent intent=new Intent("com.pal.thirstymission.serach_mod1");
+                intent.putExtra("cllgno", ""+cllga);
+                intent.putExtra("brno", ""+bra);
+                intent.putExtra("yrno", ""+yra);
+                sendBroadcast(intent);
 
             }
         });
@@ -154,18 +152,21 @@ public class Getc extends AppCompatActivity {
     }
 
 
-    public void updatecllglist(String s) {
+    public void updatecllglist(String s,int a) {
         cllg=s;
+        cllga=a;
 
 
     }
 
-    public void updatebrlist(String s) {
+    public void updatebrlist(String s,int a) {
     br=s;
+    bra=a;
 
     }
-    public void updateyrlist(String s) {
+    public void updateyrlist(String s, int a) {
       yr=s;
+      yra=a;
 
     }
     @Override

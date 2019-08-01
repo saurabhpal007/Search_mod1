@@ -58,7 +58,7 @@ public class Adapbr extends RecyclerView.Adapter<Adapbr.MyViewHolder> {
                 }
                 Log.i("qqqqbr",""+joined1);
                 if (context instanceof Getc) {
-                    ((Getc) context).updatebrlist(joined1);
+                    ((Getc) context).updatebrlist(joined1,list1.size());
                 }
 
             }

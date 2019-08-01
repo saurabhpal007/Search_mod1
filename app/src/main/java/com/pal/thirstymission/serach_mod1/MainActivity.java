@@ -1,6 +1,9 @@
 package com.pal.thirstymission.serach_mod1;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,6 +24,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    BroadcastReceiver receiver;
     private List<Users> users;
 
     private ApiInterface apiInterface;
@@ -38,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
     String passedItem3=null;
     int REQUEST_CODE=101;
 
-
+    IntentFilter filter;
+    Boolean myReceiverIsRegistered = false;
 
     FloatingActionButton fab;
+    public static ArrayList<String> showf= new ArrayList<String>();
 
 
     @Override
@@ -59,11 +67,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewfil.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
-
-        adpfil = new Adapf(MainActivity.this);
-        recyclerViewfil.setAdapter(adpfil);
-
-
         fab = findViewById(R.id.floatingActionButton);
 
         //used to get all the contents from database
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showf.clear();
                 Toast.makeText(MainActivity.this, "pressed", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MainActivity.this, Getc.class), REQUEST_CODE);
 
@@ -84,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 Log.i("mmmm", ""+passedItem);
                 Log.i("mmmm", ""+passedItem2);
@@ -146,13 +152,14 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error\n" + t.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "NO RESULT FOUND", Toast.LENGTH_LONG);
 
             }
         });
 
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -167,12 +174,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        receiver=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                String cllgno = intent.getStringExtra("cllgno");
+                String brno = intent.getStringExtra("brno");
+                String yrno = intent.getStringExtra("yrno");
+                Toast.makeText(context,"Broadcast Received in Activity called "+cllgno,Toast.LENGTH_SHORT).show();
+                showf.add("College : "+cllgno);
+                showf.add("Branch : "+brno);
+                showf.add("Year : "+yrno);
+
+                adpfil = new Adapf(showf,MainActivity.this);
+                recyclerViewfil.setAdapter(adpfil);
+                adpfil.notifyDataSetChanged();
 
 
 
+            }
+        };
+
+        if (!myReceiverIsRegistered) {
+            myReceiverIsRegistered = true;
+            filter = new IntentFilter();
+            filter.addAction("com.pal.thirstymission.serach_mod1");
+            registerReceiver(receiver, filter);
+        }
 
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(receiver!=null)
+        {
+            unregisterReceiver(receiver);
+        }
+    }
 
 
 
