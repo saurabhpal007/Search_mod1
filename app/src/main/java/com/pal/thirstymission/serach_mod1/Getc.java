@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,11 +69,9 @@ public class Getc extends AppCompatActivity {
         src.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent("com.pal.thirstymission.serach_mod1");
-                intent.putExtra("cllgno", ""+cllga);
-                intent.putExtra("brno", ""+bra);
-                intent.putExtra("yrno", ""+yra);
-                sendBroadcast(intent);
+                finish();
+
+
 
             }
         });
@@ -87,7 +86,7 @@ public class Getc extends AppCompatActivity {
             public void onResponse(Call<List<Colleges>> call, Response<List<Colleges>> response) {
 
                 colleges = response.body();
-                Log.i("ommmm", "u" + colleges.get(0).getCollege());
+
                ad = new Adapcllg(colleges, Getc.this);
                recyclerViewcllg.setAdapter(ad);
                ad.notifyDataSetChanged();
@@ -110,7 +109,7 @@ public class Getc extends AppCompatActivity {
             public void onResponse(Call<List<Branches>> call, Response<List<Branches>> response) {
 
                 branches = response.body();
-                Log.i("ommmm", "u" + branches.get(0).getBranch());
+
                 adb = new Adapbr(branches, Getc.this);
                 recyclerViewbr.setAdapter(adb);
                 adb.notifyDataSetChanged();
@@ -135,7 +134,6 @@ public class Getc extends AppCompatActivity {
             public void onResponse(Call<List<Years>> call, Response<List<Years>> response) {
 
                 years = response.body();
-                Log.i("oyy", "u" + years.get(0).getYear());
                 ady = new Adapyr(years, Getc.this);
                 recyclerViewyr.setAdapter(ady);
                 ady.notifyDataSetChanged();
@@ -171,12 +169,15 @@ public class Getc extends AppCompatActivity {
     }
     @Override
     public void finish() {
-        Intent returnIntent = new Intent();
-
+        super.finish();
+        Intent returnIntent = new Intent("com.pal.thirstymission.serach_mod1");
+        returnIntent.putExtra("cllgno", ""+cllga);
+        returnIntent.putExtra("brno", ""+bra);
+        returnIntent.putExtra("yrno", ""+yra);
         returnIntent.putExtra("passed_item", ""+cllg);
         returnIntent.putExtra("passed_item2", ""+br);
         returnIntent.putExtra("passed_item3", ""+yr);
-        setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
-        super.finish();
+        LocalBroadcastManager.getInstance(this).sendBroadcast(returnIntent);
+
     }
 }

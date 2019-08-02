@@ -29,8 +29,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-       holder.name.setText("NAME:"+users.get(position).getName());
+       holder.name.setText("NAME:"+users.get(position).getName().toUpperCase());
        holder.id.setText("ID:"+String.valueOf(users.get(position).getId()));
+        holder.cllg.setText("COLLEGE:"+users.get(position).getCollege());
+        holder.br.setText("BRANCH:"+users.get(position).getBranch());
+        holder.yr.setText("START YEAR:"+users.get(position).getYear());
       Log.i("checkkkk",""+String.valueOf(users.get(position).getId()));
     }
 
@@ -40,11 +43,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name,id;
+        TextView name,id,cllg,br,yr;
         public MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             id=itemView.findViewById(R.id.ide);
+            cllg=itemView.findViewById(R.id.cllgv);
+            br=itemView.findViewById(R.id.brv);
+            yr=itemView.findViewById(R.id.yrv);
         }
     }
 }
