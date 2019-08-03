@@ -6,7 +6,7 @@ if(isset($_GET['key'])){
 	$key=$_GET['key'];
 	
 
-	$query="SELECT * FROM `lo` WHERE MATCH(name) Against('$key')"; //will use boolean mode after sucessful deployment to app
+	$query="SELECT * FROM `lo` WHERE `name` LIKE '%$key%'"; //will use boolean mode after sucessful deployment to app
 	
 	$result=mysqli_query($conn,$query);	
 	
@@ -15,12 +15,15 @@ if(isset($_GET['key'])){
 		array_push($response,
 		array(
 			'id'=>$row['id'],
-			'name'=>$row['name'])
+			'name'=>$row['name'],
+			'college'=>$row['college'],
+			'branch'=>$row['branch'],
+			'start_year'=>$row['start_year'])
 			);			
 			}		
 		
-			
 	echo json_encode($response);
+	
 }
 //if key remains empty all data printed just for testing
 else{
